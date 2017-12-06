@@ -74,13 +74,31 @@ Anthony Verez averez@mozilla.com
     </div>
     <div class="row col-xs-12">
         <div id="alerts-data-table" >
-            <table class="alerts-data-table table table-reactive table-condensed">
+            <table id="alertsummarytable" class="alerts-data-table table table-reactive table-condensed tablesorter">
                 <thead><tr>
-                <td class="upperwhite">Timestamp</td>
-                <td class="upperwhite">Links</td>
-                <td class="upperwhite">Severity</td>
-                <td class="upperwhite">Category</td>
-                <td class="upperwhite">Summary</td>
+                    <td>
+                        <a class="upperwhite" id="ts" href="#">Timestamp
+                            <span>
+                                <i class="{{tsIconClass}}"></i>
+                            </span>
+                        </a>
+                    </td>
+                    <td>
+                        <a class="upperwhite" id="links" href="#">Links
+                             <span>
+                                <i class="{{linksIconClass}}"></i>
+                             </span>
+                        </a>
+                    </td>
+                    <td>
+                        <a class="upperwhite" id="sev" href="#">Severity
+                             <span>
+                                <i class="{{sevIconClass}}"></i>
+                             </span>
+                        </a>
+                    </td>
+                    <td><a class="upperwhite" id="cat" href="#">Category</a></td>
+                    <td><a class="upperwhite" id="summary" href="#">Summary</a></td>
                 <td></td>
                 </tr>
                 </thead>
@@ -98,6 +116,20 @@ Anthony Verez averez@mozilla.com
     {{>blockIPModal}}
     {{>intelmodal}}
 </div>
+<nav>
+    <ul class="pager">
+      <li class="{{prevPageClass}}">
+        <a id="prevPage" href="{{prevPage}}">
+          <span aria-hidden="true">&larr;</span> Previous
+        </a>
+      </li>
+      <li class="{{nextPageClass}}">
+        <a id="nextPage" href="{{nextPage}}">
+          Next <span aria-hidden="true">&rarr;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
 </template>
 
 <template name="alertTableItem">

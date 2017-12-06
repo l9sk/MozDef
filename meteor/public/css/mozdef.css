@@ -40,8 +40,45 @@ body{
 
 
 /*mozdef custom */
-.upperwhite {
+.alerts-data-table a.upperwhite:link {
     color: #FFF;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.alerts-data-table a.upperwhite:active {
+    color: #FFF;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.alerts-data-table a.upperwhite:hover {
+    color: #FFF;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.alerts-data-table a.upperwhite:visited {
+    color: #FFF;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.in-table a.upperwhite:link {
+    color: #FFF;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.in-table a.upperwhite:active {
+    color: #FFF;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.in-table a.upperwhite:hover {
+    color: #FFF;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.in-table a.upperwhite:visited {
+    color: #FFF;
+    font-weight: bold;
     text-transform: uppercase;
 }
 

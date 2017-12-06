@@ -22,7 +22,7 @@ if (Meteor.isClient) {
         Session.set('alertssearchtext','');
         Session.set('alertssearchtime','tail');
         Session.set('alertsfiltertext','');
-        Session.set('alertsrecordlimit',100);
+        Session.set('alertsrecordlimit',10);
         Session.set('attackerlimit','10');
         getAllPlugins();
 

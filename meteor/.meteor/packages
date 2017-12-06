@@ -17,6 +17,7 @@ meteor-base
 mobile-experience
 mongo
 blaze-html-templates
+percolate:find-from-publication
 session
 jquery
 tracker

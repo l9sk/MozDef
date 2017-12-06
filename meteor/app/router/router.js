@@ -27,7 +27,7 @@ Router.map(function () {
     });
 
     this.route('alertssummary', {
-        path: '/alerts',
+        path: '/alerts/:page?/:sortField?/:sortDirection?',
         template: 'alertssummary',
         layoutTemplate: 'layout'
     });

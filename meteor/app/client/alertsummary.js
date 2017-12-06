@@ -14,14 +14,22 @@ if (Meteor.isClient) {
     Session.set('alertsSearch',null);
     Session.set('alertsDisplayed',0);
 
+    Template.alertssummary.onCreated(function() {
+        var template = this;
+
+        template.autorun(function() {
+            var skipCount = (currentPage() - 1) * 10; // 10 records per page
+            template.subscribe('alerts-summary', skipCount);
+       });
+    });
+
     Template.alertssummary.helpers({
         selectedalerts: function () {
             //console.log(moment().format(),Session.get('alertsSearch'));
             
             Session.set('alertsDisplayed',
                         alerts.find(Session.get('alertsSearch'),
-                                {limit: Session.get('alertsrecordlimit'),
-                                reactive:false}).count()
+                                {reactive:false}).count()
                         );
             
             //return just what's needed for the summary table
@@ -39,10 +47,53 @@ if (Meteor.isClient) {
                                         url:1
                                         },
                                 sort: {utcepoch: -1},
-                                limit: Session.get('alertsrecordlimit'),
                                 reactive:true})
+        },
+        prevPage: function() {
+          var previousPage = currentPage === 1 ? 1 : currentPage() - 1;
+          return Router.routes.alertssummary.path({page: previousPage});
+        },
+        nextPage: function() {
+          var nextPage = hasMorePages() ? currentPage() + 1: currentPage;
+          return Router.routes.alertssummary.path({page: nextPage});
+        },
+        prevPageClass: function() {
+            return currentPage() <= 1 ? "disabled" : "";
+        },
+        nextPageClass: function() {
+            return hasMorePages() ? "" : "disabled";
         }
-    });    
+      });
+
+    //Template.alertssummary.helpers({
+    //    selectedalerts: function () {
+    //        //console.log(moment().format(),Session.get('alertsSearch'));
+    //        
+    //        Session.set('alertsDisplayed',
+    //                    alerts.find(Session.get('alertsSearch'),
+    //                            {limit: Session.get('alertsrecordlimit'),
+    //                            reactive:false}).count()
+    //                    );
+    //        
+    //        //return just what's needed for the summary table
+    //        return alerts.find(Session.get('alertsSearch'),
+    //                            {fields:{
+    //                                    _id:1,
+    //                                    esmetadata:1,
+    //                                    utctimestamp:1,
+    //                                    utcepoch:1,
+    //                                    summary:1,
+    //                                    severity:1,
+    //                                    category:1,
+    //                                    acknowledged:1,
+    //                                    acknowledgedby:1,
+    //                                    url:1
+    //                                    },
+    //                            sort: {utcepoch: -1},
+    //                            limit: Session.get('alertsrecordlimit'),
+    //                            reactive:true})
+    //    }
+    //});    
 
     Template.alertssummary.events({
         "click .reset": function(e,t){
@@ -103,9 +154,17 @@ if (Meteor.isClient) {
                 Session.set('alertsrecordlimit',100);
             }
             refreshAlertsData();
-        }
-        
+        }        
     });
+
+    var hasMorePages = function() {
+        var totalAlerts = Counts.get('alertsCount');
+        return currentPage * 10 < totalAlerts;
+    }
+
+    var currentPage = function() {
+        return parseInt(Router.current().params.page) || 1;
+    }
     
     //UI template helpers
     Template.alertssummary.helpers({
